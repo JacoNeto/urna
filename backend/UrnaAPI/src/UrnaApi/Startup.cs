@@ -1,6 +1,8 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +12,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UrnaApi.Interfaces;
+using UrnaApi.Notifications;
+using UrnaApi.Repository;
+using UrnaApi.Services;
 
 namespace UrnaApi
 {
@@ -25,6 +31,16 @@ namespace UrnaApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PsqlContext>(opts => opts.UseNpgsql(Configuration.GetConnectionString("psql")));
+  
+            services.AddScoped<INotificador, Notificador>();
+            services.AddScoped<ICandidatoRepository, CandidatoRepository>();
+            services.AddScoped<ICandidatoService, CandidatoService>();
+            services.AddScoped<IVotoRepository, VotoRepository>();
+            services.AddScoped<IVotoService, VotoService>();
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
