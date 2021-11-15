@@ -23,7 +23,7 @@ class API {
 
   //
   // search candidato by numero
-  static Future<Candidato> fetchCandidatoByNumero(int numero) async {
+  static Future<Candidato>? fetchCandidatoByNumero(int numero) async {
     var url = Uri.parse(baseUrl + "/$numero");
     http.Response response = await http.get(url);
     final parsed = jsonDecode(response.body).cast<String, dynamic>();
