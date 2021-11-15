@@ -15,7 +15,7 @@ namespace UrnaApi.Dtos
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Partido { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [Range(0, 1, ErrorMessage = "Informe 0 para vereador e 1 para prefeito")]
+        [Range(0, 1, ErrorMessage = "valor inválido")]
         public int Cargo { get; set; }
         public string Imagem { get; set; }
     }
