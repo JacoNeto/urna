@@ -7,13 +7,14 @@ namespace UrnaApi.Dtos
 {
     public class ListaResponse
     {
-        public ListaResponse(string nome, int numero, string partido, int cargo, int votos)
+        public ListaResponse(string nome, int numero, string partido, int cargo, int votos, string imagem)
         {
             Nome = nome;
             Numero = numero;
             Partido = partido;
             Cargo = cargo;
             Votos = votos;
+            Imagem = imagem;
         }
 
         public string Nome { get; private set; }
@@ -21,5 +22,6 @@ namespace UrnaApi.Dtos
         public string Partido { get; private set; }
         public int Cargo { get; private set; }
         public int Votos { get; private set; }
+        public string Imagem { get; private set; }
     }
 }

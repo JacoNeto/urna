@@ -40,10 +40,10 @@ namespace UrnaApi.Controllers
 
             foreach(var candidato in candidatos)
             {
-                response.Add(new ListaResponse(candidato.Nome, candidato.Numero, candidato.Partido, candidato.Cargo, candidato.Votos.Count()));
+                response.Add(new ListaResponse(candidato.Nome, candidato.Numero, candidato.Partido, candidato.Cargo, candidato.Votos.Count(), candidato.Imagem));
             }
 
-            return CustomResponse(Ok(response));
+            return CustomResponse(Ok(response.OrderByDescending(r => r.Votos)));
         }
 
         [HttpGet("/{numero:int}")]

@@ -27,16 +27,8 @@ namespace UrnaApi.Services
                 Notificar("Já existe um cadidato cadastrado com o número informado.");
             }
 
-            if (candidato.Cargo == 0)
-            {
-                if(candidato.Numero < 10000 || candidato.Numero > 99999) Notificar("Vereador possui um número com 5 digitos.");
-                if (!isValid()) return;
-                await _candidatoRepository.Adicionar(candidato);
-                return;
-            }
-
-            if (candidato.Numero < 10 || candidato.Numero > 99) Notificar("Prefeito possui número com 2 digitos");
             if (!isValid()) return;
+
             await _candidatoRepository.Adicionar(candidato);
             return;
         }
