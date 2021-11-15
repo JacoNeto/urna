@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'keyboard_components/key_button.dart';
+import 'keyboard_components/operation_button.dart';
+
 class Keyboard extends StatelessWidget {
   const Keyboard({Key? key}) : super(key: key);
 
@@ -55,58 +58,27 @@ class Keyboard extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               const OperationButton(
                 label: 'BRANCO',
                 color: Colors.white,
+                height: 50,
               ),
               const OperationButton(
                 label: 'CORRIGE',
                 color: Colors.orange,
+                height: 50,
               ),
               OperationButton(
                 label: 'CONFIRMA',
                 color: Colors.green[300],
+                height: 70,
               ),
             ],
           )
         ],
       ),
-    );
-  }
-}
-
-class KeyButton extends StatelessWidget {
-  const KeyButton({Key? key, required this.value}) : super(key: key);
-
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: Text(value),
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(primary: Colors.grey[800]),
-    );
-  }
-}
-
-class OperationButton extends StatelessWidget {
-  const OperationButton({Key? key, required this.color, required this.label})
-      : super(key: key);
-
-  final Color? color;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: Text(
-        label,
-        style: const TextStyle(color: Colors.black),
-      ),
-      style: ElevatedButton.styleFrom(primary: color),
-      onPressed: () {},
     );
   }
 }
