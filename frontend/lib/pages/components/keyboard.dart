@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:urna/controllers/eleicao_controller.dart';
 
 import 'keyboard_components/key_button.dart';
 import 'keyboard_components/operation_button.dart';
 
 class Keyboard extends StatelessWidget {
-  const Keyboard({Key? key}) : super(key: key);
+  Keyboard({Key? key}) : super(key: key);
+
+  final EleicaoController eleicaoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class Keyboard extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children: [
                       KeyButton(value: '1'),
                       KeyButton(value: '2'),
                       KeyButton(value: '3'),
@@ -34,7 +38,7 @@ class Keyboard extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children: [
                       KeyButton(value: '4'),
                       KeyButton(value: '5'),
                       KeyButton(value: '6'),
@@ -45,14 +49,14 @@ class Keyboard extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children: [
                       KeyButton(value: '7'),
                       KeyButton(value: '8'),
                       KeyButton(value: '9'),
                     ],
                   ),
                 ),
-                const KeyButton(value: '0'),
+                KeyButton(value: '0'),
               ],
             ),
           ),
@@ -60,20 +64,25 @@ class Keyboard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const OperationButton(
+              OperationButton(
                 label: 'BRANCO',
                 color: Colors.white,
                 height: 50,
+                onPressed: () {},
               ),
-              const OperationButton(
+              OperationButton(
                 label: 'CORRIGE',
                 color: Colors.orange,
                 height: 50,
+                onPressed: () {
+                  eleicaoController.limparNumero();
+                },
               ),
               OperationButton(
                 label: 'CONFIRMA',
                 color: Colors.green[300],
                 height: 70,
+                onPressed: () {},
               ),
             ],
           )

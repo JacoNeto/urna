@@ -14,7 +14,7 @@ class RouteGenerator {
       //Route to Home Page
       GetPage(
         name: HOME_PAGE,
-        page: () => const HomePage(),
+        page: () => HomePage(),
       ),
       //Route to Login Page
       GetPage(

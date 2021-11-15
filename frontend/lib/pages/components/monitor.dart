@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:urna/controllers/eleicao_controller.dart';
 import 'package:urna/pages/components/monitor_components/candidato_image.dart';
 import 'package:urna/pages/components/monitor_components/vote_container.dart';
 import 'package:urna/utils/widgets/text_default.dart';
@@ -6,7 +8,9 @@ import 'package:urna/utils/widgets/text_default.dart';
 import 'monitor_components/info_text.dart';
 
 class Monitor extends StatelessWidget {
-  const Monitor({Key? key}) : super(key: key);
+  Monitor({Key? key}) : super(key: key);
+
+  final EleicaoController eleicaoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +50,21 @@ class Monitor extends StatelessWidget {
                       ),
 
                       /// NÚMERO INFORMADO
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: const [
-                          TextDefault("Número: "),
-                          Vote(
-                            numero: ["1", "2", "3", "4", "5"],
-                            candidato: 0,
-                          )
-                        ],
-                      ),
+                      Obx(() {
+                        var list =
+                            eleicaoController.numeroAtual.value.split('');
+                        list.addAll(["", "", "", "", ""]);
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            const TextDefault("Número: "),
+                            Vote(
+                              numero: list,
+                              candidato: 0,
+                            )
+                          ],
+                        );
+                      }),
                       const SizedBox(
                         height: 30,
                       ),

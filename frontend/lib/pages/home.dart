@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:urna/controllers/eleicao_controller.dart';
 import 'package:urna/pages/components/end_button.dart';
 import 'package:urna/pages/components/keyboard.dart';
 import 'package:urna/pages/components/monitor.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({
+  HomePage({
     Key? key,
   }) : super(key: key);
+
+  final EleicaoController eleicaoController = Get.put(EleicaoController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class HomePage extends StatelessWidget {
             padding:
                 const EdgeInsets.only(left: 50, right: 50, top: 70, bottom: 70),
             color: Colors.grey[300],
-            child: const Monitor(),
+            child: Monitor(),
           ),
         ),
         Expanded(
@@ -39,7 +43,7 @@ class HomePage extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Container(
-                  child: const Keyboard(),
+                  child: Keyboard(),
                   color: Colors.grey[700],
                 ),
               )

@@ -5,12 +5,14 @@ class OperationButton extends StatelessWidget {
       {Key? key,
       required this.color,
       required this.label,
-      required this.height})
+      required this.height,
+      required this.onPressed})
       : super(key: key);
 
   final Color? color;
   final String label;
   final double height;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class OperationButton extends StatelessWidget {
       ),
       style: ElevatedButton.styleFrom(
           primary: color, fixedSize: Size(120, height)),
-      onPressed: () {},
+      onPressed: onPressed,
     );
   }
 }
