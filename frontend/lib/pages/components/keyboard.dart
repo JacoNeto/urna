@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:urna/controllers/eleicao_controller.dart';
+
+import 'keyboard_components/key_button.dart';
+import 'keyboard_components/operation_button.dart';
 
 class Keyboard extends StatelessWidget {
-  const Keyboard({Key? key}) : super(key: key);
+  Keyboard({Key? key}) : super(key: key);
+
+  final EleicaoController eleicaoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +27,7 @@ class Keyboard extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children: [
                       KeyButton(value: '1'),
                       KeyButton(value: '2'),
                       KeyButton(value: '3'),
@@ -31,7 +38,7 @@ class Keyboard extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children: [
                       KeyButton(value: '4'),
                       KeyButton(value: '5'),
                       KeyButton(value: '6'),
@@ -42,71 +49,45 @@ class Keyboard extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children: [
                       KeyButton(value: '7'),
                       KeyButton(value: '8'),
                       KeyButton(value: '9'),
                     ],
                   ),
                 ),
-                const KeyButton(value: '0'),
+                KeyButton(value: '0'),
               ],
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const OperationButton(
+              OperationButton(
                 label: 'BRANCO',
                 color: Colors.white,
+                height: 50,
+                onPressed: () {},
               ),
-              const OperationButton(
+              OperationButton(
                 label: 'CORRIGE',
                 color: Colors.orange,
+                height: 50,
+                onPressed: () {
+                  eleicaoController.limparNumero();
+                },
               ),
               OperationButton(
                 label: 'CONFIRMA',
                 color: Colors.green[300],
+                height: 70,
+                onPressed: () {},
               ),
             ],
           )
         ],
       ),
-    );
-  }
-}
-
-class KeyButton extends StatelessWidget {
-  const KeyButton({Key? key, required this.value}) : super(key: key);
-
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: Text(value),
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(primary: Colors.grey[800]),
-    );
-  }
-}
-
-class OperationButton extends StatelessWidget {
-  const OperationButton({Key? key, required this.color, required this.label})
-      : super(key: key);
-
-  final Color? color;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: Text(
-        label,
-        style: const TextStyle(color: Colors.black),
-      ),
-      style: ElevatedButton.styleFrom(primary: color),
-      onPressed: () {},
     );
   }
 }
