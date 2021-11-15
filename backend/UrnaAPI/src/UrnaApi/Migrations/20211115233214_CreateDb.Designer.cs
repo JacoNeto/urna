@@ -10,8 +10,8 @@ using UrnaApi;
 namespace UrnaApi.Migrations
 {
     [DbContext(typeof(PsqlContext))]
-    [Migration("20211114193223_createDb")]
-    partial class createDb
+    [Migration("20211115233214_CreateDb")]
+    partial class CreateDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,9 @@ namespace UrnaApi.Migrations
 
                     b.Property<int>("Cargo")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Imagem")
+                        .HasColumnType("text");
 
                     b.Property<string>("Nome")
                         .HasColumnType("text");

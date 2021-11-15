@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UrnaApi.Migrations
 {
-    public partial class createDb : Migration
+    public partial class CreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,8 @@ namespace UrnaApi.Migrations
                     Nome = table.Column<string>(type: "text", nullable: true),
                     Numero = table.Column<int>(type: "integer", nullable: false),
                     Partido = table.Column<string>(type: "text", nullable: true),
-                    Cargo = table.Column<int>(type: "integer", nullable: false)
+                    Cargo = table.Column<int>(type: "integer", nullable: false),
+                    Imagem = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -39,7 +40,7 @@ namespace UrnaApi.Migrations
                         column: x => x.CandidatoId,
                         principalTable: "Candidatos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
