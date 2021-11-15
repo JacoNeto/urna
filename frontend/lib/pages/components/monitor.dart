@@ -77,9 +77,7 @@ class Monitor extends StatelessWidget {
                           Row(
                             children: [
                               const TextDefault("Nome: "),
-                              TextDefault(
-                                  eleicaoController.candidatoAtual.value.nome ??
-                                      "",
+                              TextDefault(candidato.value.nome ?? "",
                                   fontWeight: FontWeight.bold),
                             ],
                           ),
@@ -93,9 +91,7 @@ class Monitor extends StatelessWidget {
                             children: [
                               const TextDefault("Partido: "),
                               TextDefault(
-                                eleicaoController
-                                        .candidatoAtual.value.partido ??
-                                    "",
+                                candidato.value.partido ?? "",
                                 fontWeight: FontWeight.bold,
                               )
                             ],
@@ -105,11 +101,13 @@ class Monitor extends StatelessWidget {
                     ),
 
                     /// FOTO DO CANDIDATO
-                    const Expanded(
+                    Expanded(
                         flex: 2,
                         child: Align(
                             alignment: Alignment.topRight,
-                            child: CandidatoImage()))
+                            child: CandidatoImage(
+                              image: candidato.value.imagem ?? "",
+                            )))
                   ],
                 ),
               )),

@@ -8,13 +8,9 @@ class Candidato {
   int? numero;
   String? partido;
   int? cargo;
+  String? imagem;
 
-  Candidato({
-    this.nome,
-    this.numero,
-    this.partido,
-    this.cargo,
-  });
+  Candidato({this.nome, this.numero, this.partido, this.cargo, this.imagem});
 
   factory Candidato.fromJson(Map<String, dynamic> json) =>
       _$CandidatoFromJson(json);

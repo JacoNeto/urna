@@ -28,7 +28,8 @@ class EleicaoController extends GetxController {
         (cargo.value == 1 && numeroAtual.value.length == 2)) {
       candidatoAtual.value =
           await API.fetchCandidatoByNumero(int.parse(numeroAtual.value));
-      print("MAAAAAAPPAAAAAAAAAAAA " + (candidatoAtual.value.nome ?? "faiou"));
+      print(
+          "MAAAAAAPPAAAAAAAAAAAA " + (candidatoAtual.value.imagem ?? "faiou"));
     }
   }
 
