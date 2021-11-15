@@ -68,7 +68,9 @@ class Keyboard extends StatelessWidget {
                 label: 'BRANCO',
                 color: Colors.white,
                 height: 50,
-                onPressed: () {},
+                onPressed: () {
+                  eleicaoController.votoBranco();
+                },
               ),
               OperationButton(
                 label: 'CORRIGE',
@@ -82,7 +84,10 @@ class Keyboard extends StatelessWidget {
                 label: 'CONFIRMA',
                 color: Colors.green[300],
                 height: 70,
-                onPressed: () {},
+                onPressed: () {
+                  eleicaoController.confirmarVoto(
+                      int.parse(eleicaoController.numeroAtual.value));
+                },
               ),
             ],
           )
