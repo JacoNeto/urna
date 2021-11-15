@@ -21,8 +21,6 @@ namespace UrnaApi.Repository
         {
             List<Candidato> candidatos = new List<Candidato>();
             candidatos = await Dbset.AsNoTracking().Where(c => c.Cargo == cargo).Include(c => c.Votos).ToListAsync();
-
-            candidatos.OrderBy(c => c.Votos?.Count());
             return candidatos;
         }
     }
