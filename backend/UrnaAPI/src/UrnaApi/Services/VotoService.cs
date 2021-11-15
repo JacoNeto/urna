@@ -18,15 +18,31 @@ namespace UrnaApi.Services
         }
 
         public async Task Criar(Voto voto)
-        { 
-            var votoExist = await _votoRepository.BuscarPorNumero(voto.TItuloEleitor, voto.Candidato.Cargo);
-            
-            if(!(votoExist is null))
+        {
+            if(voto.Candidato is null)
             {
-                Notificar("Eleitor já votou em um caditado para este cargo");
+                Notificar("Candidato com número informado não existe.");
+                return;
             }
 
-            if(!isValid())
+            var votos = await _votoRepository.BuscarPorTitulo(voto.TItuloEleitor, voto.Candidato.Cargo);
+
+            if(voto.Candidato.Cargo == 1 && votos.Any())
+            {
+                Notificar("Você já votou para presidente");
+            }
+
+            if(voto.Candidato.Cargo == 0 && votos.Count() == 2)
+            {
+                Notificar("Você já votou em 2 senadores");
+            }
+
+            if(voto.Candidato.Cargo == 0 && votos.Where(v => v.Candidato.Numero == voto.Candidato.Numero).Any())
+            {
+                Notificar("Você já votou nesse senador");
+            }
+
+            if (!isValid())
             {
                 return;
             }

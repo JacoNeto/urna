@@ -9,5 +9,6 @@ namespace UrnaApi.Interfaces
     public interface IVotoRepository : IRepository<Voto>
     {
         Task<Voto> BuscarPorNumero(string titulo, int cargo);
+        Task<IEnumerable<Voto>> BuscarPorTitulo(string titulo, int cargo);
     }
 }

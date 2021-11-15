@@ -16,5 +16,13 @@ namespace UrnaApi.Repository
         {
             return await Dbset.FirstOrDefaultAsync(c => c.TItuloEleitor == titulo && c.Candidato.Cargo == cargo);
         }
+
+        public async Task<IEnumerable<Voto>> BuscarPorTitulo(string titulo, int cargo)
+        {
+            return await Dbset.Where(v => v.TItuloEleitor == titulo)
+                            .Where(v => v.Candidato.Cargo == cargo)
+                            .Include(v => v.Candidato)
+                            .ToListAsync();
+        }
     }
 }
