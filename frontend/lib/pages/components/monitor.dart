@@ -14,95 +14,105 @@ class Monitor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var candidato = eleicaoController.candidatoAtual;
     return Container(
       padding: const EdgeInsets.all(10),
       color: Colors.white,
       child: Column(
         children: [
           /// CONTEÚDO
-          Expanded(
-            child: Row(
-              children: [
-                /// INFORMAÇÕES DO CANDIDATO
-                Expanded(
-                  flex: 7,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "SEU VOTO PARA",
-                        style: TextStyle(
-                            fontSize: 27, fontWeight: FontWeight.bold),
-                      ),
+          Obx(() => Expanded(
+                child: Row(
+                  children: [
+                    /// INFORMAÇÕES DO CANDIDATO
+                    Expanded(
+                      flex: 7,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "SEU VOTO PARA",
+                            style: TextStyle(
+                                fontSize: 27, fontWeight: FontWeight.bold),
+                          ),
 
-                      /// CARGO DISPUTADO
-                      const Padding(
-                        padding: EdgeInsets.only(left: 250.0),
-                        child: Text(
-                          "VEREADOR",
-                          style: TextStyle(
-                              fontSize: 50, fontWeight: FontWeight.bold),
-                        ),
-                      ),
+                          /// CARGO DISPUTADO
+                          Padding(
+                            padding: const EdgeInsets.only(left: 250.0),
+                            child: Obx(() => Text(
+                                  eleicaoController.cargo.value == 0
+                                      ? "VEREADOR"
+                                      : "PREFEITO",
+                                  style: const TextStyle(
+                                      fontSize: 50,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                          ),
 
-                      const SizedBox(
-                        height: 120,
-                      ),
+                          const SizedBox(
+                            height: 120,
+                          ),
 
-                      /// NÚMERO INFORMADO
-                      Obx(() {
-                        var list =
-                            eleicaoController.numeroAtual.value.split('');
-                        list.addAll(["", "", "", "", ""]);
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            const TextDefault("Número: "),
-                            Vote(
-                              numero: list,
-                              candidato: 0,
-                            )
-                          ],
-                        );
-                      }),
-                      const SizedBox(
-                        height: 30,
-                      ),
+                          /// NÚMERO INFORMADO
+                          Obx(() {
+                            var list =
+                                eleicaoController.numeroAtual.value.split('');
+                            list.addAll(["", "", "", "", ""]);
+                            return Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                const TextDefault("Número: "),
+                                Vote(
+                                  numero: list,
+                                  candidato: 0,
+                                )
+                              ],
+                            );
+                          }),
+                          const SizedBox(
+                            height: 30,
+                          ),
 
-                      /// Nome do Candidato INFORMADO
-                      Row(
-                        children: const [
-                          TextDefault("Nome: "),
-                          TextDefault("Jacó Neto", fontWeight: FontWeight.bold),
+                          /// Nome do Candidato INFORMADO
+                          Row(
+                            children: [
+                              const TextDefault("Nome: "),
+                              TextDefault(
+                                  eleicaoController.candidatoAtual.value.nome ??
+                                      "",
+                                  fontWeight: FontWeight.bold),
+                            ],
+                          ),
+
+                          const SizedBox(
+                            height: 14,
+                          ),
+
+                          /// Partido do Candidato INFORMADO
+                          Row(
+                            children: [
+                              const TextDefault("Partido: "),
+                              TextDefault(
+                                eleicaoController
+                                        .candidatoAtual.value.partido ??
+                                    "",
+                                fontWeight: FontWeight.bold,
+                              )
+                            ],
+                          ),
                         ],
                       ),
+                    ),
 
-                      const SizedBox(
-                        height: 14,
-                      ),
-
-                      /// Partido do Candidato INFORMADO
-                      Row(
-                        children: const [
-                          TextDefault("Partido: "),
-                          TextDefault(
-                            "Partido dos Gordos",
-                            fontWeight: FontWeight.bold,
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
+                    /// FOTO DO CANDIDATO
+                    const Expanded(
+                        flex: 2,
+                        child: Align(
+                            alignment: Alignment.topRight,
+                            child: CandidatoImage()))
+                  ],
                 ),
-
-                /// FOTO DO CANDIDATO
-                const Expanded(
-                    flex: 2,
-                    child: Align(
-                        alignment: Alignment.topRight, child: CandidatoImage()))
-              ],
-            ),
-          ),
+              )),
 
           /// DIVISÓRIA
           const Divider(),
