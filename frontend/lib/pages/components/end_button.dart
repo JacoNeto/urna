@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EndButton extends StatelessWidget {
   const EndButton({Key? key}) : super(key: key);
@@ -7,7 +8,9 @@ class EndButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Get.toNamed('/end');
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: const [

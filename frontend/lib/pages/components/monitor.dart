@@ -45,9 +45,10 @@ class Monitor extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(left: 250.0),
                               child: Obx(() => Text(
-                                    eleicaoController.cargo.value == 0
-                                        ? "VEREADOR"
-                                        : "PREFEITO",
+                                    eleicaoController.cargo.value == 0 ||
+                                            eleicaoController.cargo.value == 1
+                                        ? "SENADOR"
+                                        : "PRESIDENTE",
                                     style: const TextStyle(
                                         fontSize: 50,
                                         fontWeight: FontWeight.bold),

@@ -11,7 +11,7 @@ class Vote extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> list = [];
     int qtd;
-    qtd = candidato == 0 ? 5 : 2;
+    qtd = (candidato == 0 || candidato == 1) ? 3 : 2;
     for (int i = 0; i < qtd; i++) {
       list.add(Padding(
         padding: const EdgeInsets.only(left: 3.0),

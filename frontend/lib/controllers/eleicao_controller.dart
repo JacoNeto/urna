@@ -17,6 +17,8 @@ class EleicaoController extends GetxController {
   // variável para colocar a tela de fim
   var isFim = false.obs;
 
+  var isAuth = false.obs;
+
   // Variável pra guardar o candidato atual
   var candidatoAtual = Rx<Candidato>(Candidato());
 
@@ -25,14 +27,17 @@ class EleicaoController extends GetxController {
   ///
 
   var numeroAtual = "".obs;
+  var tituloEleitor = "";
 
   void adicionarNumero(String newNumero) async {
-    if ((cargo.value == 0 && numeroAtual.value.length <= 5) ||
-        (cargo.value == 1 && numeroAtual.value.length <= 2)) {
+    if (((cargo.value == 0 || cargo.value == 1) &&
+            numeroAtual.value.length < 3) ||
+        (cargo.value == 2 && numeroAtual.value.length < 2)) {
       numeroAtual.value += newNumero;
     }
-    if ((cargo.value == 0 && numeroAtual.value.length == 5) ||
-        (cargo.value == 1 && numeroAtual.value.length == 2)) {
+    if (((cargo.value == 0 || cargo.value == 1) &&
+            numeroAtual.value.length == 3) ||
+        (cargo.value == 2 && numeroAtual.value.length == 2)) {
       Candidato? aux =
           await API.fetchCandidatoByNumero(int.parse(numeroAtual.value));
       candidatoAtual.value = aux ?? Candidato();
@@ -44,35 +49,50 @@ class EleicaoController extends GetxController {
 
   void confirmarVoto(int numero) async {
     // TRATANDO VOTAÇÃO
-    if ((cargo.value == 0 && numeroAtual.value.length == 5) ||
-        (cargo.value == 1 && numeroAtual.value.length == 2) ||
+    if (((cargo.value == 0 || cargo.value == 1) &&
+            numeroAtual.value.length == 3) ||
+        (cargo.value == 2 && numeroAtual.value.length == 2) ||
         numero == 0 ||
         numero == 1) {
       // TRATANDO VOTO NULO
       print("CANDIDATOOOOOOOOOOOOOOOOOO " +
           (candidatoAtual.value.nome ?? "faio"));
-      if (cargo.value == 0 && candidatoAtual.value.numero == null) {
+      if ((cargo.value == 0 || cargo.value == 1) &&
+          candidatoAtual.value.numero == null) {
         numero = -1;
-      } else if (cargo.value == 1 && candidatoAtual.value.numero == null) {
+      } else if (cargo.value == 2 && candidatoAtual.value.numero == null) {
         numero = -2;
       }
 
-      var voto = Voto(tItuloEleitor: GenerateTitulo.generate(), numero: numero);
+      var voto = Voto(tItuloEleitor: tituloEleitor, numero: numero);
       await API.vote(voto);
       limparNumero();
 
-      if (cargo.value == 1) {
+      if (cargo.value == 2) {
         isFim.value = true;
         Timer(const Duration(milliseconds: 3000), () {
-          isFim.value = false;
+          setEnd();
         });
       }
-      cargo.value = (cargo.value == 0) ? 1 : 0;
+
+      if (cargo.value == 0) {
+        cargo.value = 1;
+      } else if (cargo.value == 1) {
+        cargo.value = 2;
+      } else {
+        cargo.value = 0;
+      }
     }
   }
 
+  void setEnd() {
+    tituloEleitor = "";
+    isAuth.value = false;
+    isFim.value = false;
+  }
+
   void votoBranco() {
-    if (cargo.value == 0) {
+    if ((cargo.value == 0) || (cargo.value == 1)) {
       confirmarVoto(0);
     } else {
       confirmarVoto(1);
@@ -83,4 +103,12 @@ class EleicaoController extends GetxController {
     numeroAtual.value = "";
     candidatoAtual.value = Candidato();
   }
+
+  void configTitulo(String titulo) {
+    isAuth.value = true;
+    tituloEleitor = titulo;
+  }
+
+  // RESULTADOS DA ELEIÇÃO
+
 }

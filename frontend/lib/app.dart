@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:urna/pages/home.dart';
+import 'package:urna/routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -9,6 +10,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      initialRoute: RouteGenerator.HOME_PAGE,
+      getPages: RouteGenerator.routes(),
       title: 'Urna Eletrônica',
       theme: ThemeData(
         primarySwatch: Colors.blue,

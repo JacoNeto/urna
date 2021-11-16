@@ -19,7 +19,7 @@ class RouteGenerator {
       //Route to Login Page
       GetPage(
         name: END_PAGE,
-        page: () => const EndPage(),
+        page: () => EndPage(),
       ),
       // Error Route
       GetPage(

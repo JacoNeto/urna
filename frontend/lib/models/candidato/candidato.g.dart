@@ -11,7 +11,9 @@ Candidato _$CandidatoFromJson(Map<String, dynamic> json) => Candidato(
       numero: json['numero'] as int?,
       partido: json['partido'] as String?,
       cargo: json['cargo'] as int?,
+      votos: json['votos'] as int?,
       imagem: json['imagem'] as String?,
+      id: json['id'] as String?,
     );
 
 Map<String, dynamic> _$CandidatoToJson(Candidato instance) => <String, dynamic>{

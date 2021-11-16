@@ -8,9 +8,8 @@ const baseUrl = "http://localhost:5000";
 
 class API {
   //
-  // get candidatos List by role
-  // and transforms the json in a QuestAutodiag list
-  static Future<List<Candidato>> fetchQuestsAutodiag(int cargo) async {
+  // get candidatos List
+  static Future<List<Candidato>> fetchCandidatos(int cargo) async {
     var url = Uri.parse(baseUrl + "/api/cadidato?cargo=$cargo");
     http.Response response = await http.get(url);
     final parsed = jsonDecode(response.body).cast<Map<String, dynamic>>();
@@ -57,6 +56,36 @@ class API {
     } else {
       print("nao chegou aqui");
     }
+    return response;
+  }
+
+  //
+  // create candidato
+  static Future<http.Response> createCandidato(Candidato candidato) async {
+    print(candidato.toJson());
+    print(jsonEncode(candidato.toJson()));
+    final http.Response response = await http.post(
+      Uri.parse(baseUrl + '/api/Cadidato'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(candidato.toJson()),
+    );
+    print(response.statusCode);
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      print("chegou aqui");
+    } else {
+      print("nao chegou aqui");
+    }
+    return response;
+  }
+
+  //
+  // delete candidato
+  static Future<http.Response> deleteCandidato(String id) async {
+    var url = Uri.parse(baseUrl + "/$id");
+    http.Response response = await http.delete(url);
+
     return response;
   }
 }
