@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:urna/controllers/eleicao_controller.dart';
 import 'package:urna/models/candidato/candidato.dart';
 import 'package:urna/pages/end/components/candidato_card.dart';
 import 'package:urna/services/api.dart';
 
 class EndPage extends StatelessWidget {
-  const EndPage({Key? key}) : super(key: key);
+  EndPage({Key? key}) : super(key: key);
+
+  final EleicaoController eleicaoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
